@@ -28,17 +28,20 @@ const ProductRow = props => {
 const ProductTable = props => {
   const { products } = props;
   const rows = [];
+  let lastCategory = null;
 
 
   products.forEach(product => {
-    rows.push(
-      <ProductCategoryRow
-        product={product}
-        key={product.category}
-
-      />
-      );
+    if (product.category !== lastCategory) {
+      rows.push(
+        <ProductCategoryRow
+          product={product}
+          key={product.category}
+        />
+        );
+    }
     rows.push(<ProductRow product={product} key={product.name} />);
+    lastCategory = product.category;
   });
 
   return (
