@@ -1,6 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const ProductRow = props => {
+  const { product } = props;
+
+  return(
+    <tr>
+      <td>{product.name}</td><td align='right'>{product.price}</td>
+    </tr>
+  )
+}
+
+const ProductTable = props => {
+  const { products } = props;
+  const rows = [];
+
+  products.forEach(product => {
+    rows.push(<ProductRow product={product} key={product.name} />);
+  });
+
+  return (
+    <table width='100%'>
+      <thead>
+        <tr style={{ color: 'blue' }}>
+          <th align='left'>Name</th><th align='right'>Price</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
+  );
+};
+
 const SearchBar = () => {
   return (
     <form>
@@ -13,8 +46,8 @@ const SearchBar = () => {
         </span>
       </p>
     </form>
-  )
-}
+  );
+};
 
 const FilterableProductTable = props => {
   const { products } = props;
@@ -22,7 +55,7 @@ const FilterableProductTable = props => {
   return (
     <div style={{ fontFamily: 'sans-serif' }}>
       <SearchBar />
-      ProductTable goes here
+      <ProductTable products={products} />
 
     </div>
   );
