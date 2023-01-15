@@ -1,21 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const ProductCategoryRow = props => {
+  const { product } = props;
+  return (
+    <tr>
+      <th>
+        {product.category}
+      </th>
+    </tr>
+  );
+};
+
 const ProductRow = props => {
   const { product } = props;
+  const coloredName = product.stocked ?
+    product.name :
+    <span style={{ color: 'red' }}>{product.name}</span>;
 
   return(
     <tr>
-      <td>{product.name}</td><td align='right'>{product.price}</td>
+      <td>{coloredName}</td><td align='right'>{product.price}</td>
     </tr>
-  )
-}
+  );
+};
 
 const ProductTable = props => {
   const { products } = props;
   const rows = [];
 
+
   products.forEach(product => {
+    rows.push(
+      <ProductCategoryRow
+        product={product}
+        key={product.category}
+
+      />
+      );
     rows.push(<ProductRow product={product} key={product.name} />);
   });
 
